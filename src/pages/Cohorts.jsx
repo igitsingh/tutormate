@@ -155,6 +155,7 @@ const Cohorts = () => {
             style={{ display: 'flex', justifyContent: 'center', gap: 24, marginBottom: 64 }}
           >
             <button 
+              onClick={() => window.location.href = '/signup'}
               className="btn btn-cta" 
               style={{ padding: '24px 64px', borderRadius: 32, fontSize: '1.2rem' }}
             >
@@ -534,6 +535,7 @@ const Cohorts = () => {
             </p>
             <div style={{ display: 'flex', justifyContent: 'center', gap: 32 }}>
                <button 
+                  onClick={() => window.location.href = '/signup'}
                   className="btn btn-cta"
                   style={{ padding: '28px 72px', borderRadius: 40, fontSize: '1.4rem', fontWeight: 900 }}
                >

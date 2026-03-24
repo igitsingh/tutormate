@@ -3,6 +3,7 @@ import { useLocation } from 'react-router-dom';
 import { motion, AnimatePresence } from 'framer-motion';
 import { Search, Book, MapPin, X, ChevronRight, Navigation, ChevronDown, Video, Users, Zap, Heart, Star, Package } from 'lucide-react';
 import { AuthService } from '../services/auth';
+import Logo from './Logo';
 
 const Navbar = () => {
   const [showSearch, setShowSearch] = useState(false);
@@ -68,23 +69,7 @@ const Navbar = () => {
         }}
       >
         <div style={{ width: '100%', maxWidth: 1400, display: 'flex', alignItems: 'center', justifyContent: 'space-between' }}>
-        <div 
-          onClick={() => window.location.href = '/'}
-          style={{
-            fontSize: '1.5rem',
-            color: 'var(--text-strong)',
-            cursor: 'pointer',
-            display: 'flex',
-            alignItems: 'center',
-            gap: 12,
-            fontFamily: "'Outfit', sans-serif",
-          }}
-        >
-          <div style={{ width: 36, height: 36, background: 'var(--primary-blue)', borderRadius: 10, display: 'flex', alignItems: 'center', justifyContent: 'center', color: 'white', fontSize: '1.25rem', fontWeight: 900 }}>T</div>
-          <div style={{ display: 'flex', alignItems: 'center' }}>
-            <span style={{ fontWeight: 900 }}>tutor</span><span style={{ fontWeight: 300 }}>mate</span>
-          </div>
-        </div>
+        <Logo onClick={() => window.location.href = '/'} />
 
         {/* Desktop Menu - Pill Style Island */}
         <div style={{ 
@@ -134,18 +119,18 @@ const Navbar = () => {
                      <div>
                         <h5 style={{ fontSize: '0.75rem', color: 'var(--text-subtle)', fontWeight: 800, textTransform: 'uppercase', marginBottom: 24 }}>Teaching Services</h5>
                         <div style={{ display: 'flex', flexDirection: 'column', gap: 20 }}>
-                          <MiniLink icon={<Book size={16}/>} title="1:1 Tuition Classes" onClick={() => window.location.href='/marketplace'} />
+                           <MiniLink icon={<Book size={16}/>} title="1:1 Tuition Classes" onClick={() => window.location.href='/tuition'} />
                           <MiniLink icon={<Users size={16}/>} title="Group Classes" onClick={() => window.location.href='/groupclasses'} />
                           <MiniLink icon={<Video size={16}/>} title="Live Cohorts" onClick={() => window.location.href='/livecohorts'} />
-                          <MiniLink icon={<Zap size={16}/>} title="Doubt Solving" onClick={() => window.location.href='/marketplace'} />
+                          <MiniLink icon={<Zap size={16}/>} title="Doubt Solving" onClick={() => window.location.href='/search'} />
                         </div>
                      </div>
                      <div>
                         <h5 style={{ fontSize: '0.75rem', color: 'var(--text-subtle)', fontWeight: 800, textTransform: 'uppercase', marginBottom: 24 }}>Learning Products</h5>
                         <div style={{ display: 'flex', flexDirection: 'column', gap: 20 }}>
-                          <MiniLink icon={<Package size={16}/>} title="Course Packages" onClick={() => window.location.href='/marketplace'} />
-                          <MiniLink icon={<Book size={16}/>} title="Study Material" onClick={() => window.location.href='/marketplace'} />
-                          <MiniLink icon={<Video size={16}/>} title="Recorded Classes" onClick={() => window.location.href='/marketplace'} />
+                          <MiniLink icon={<Package size={16}/>} title="Course Packages" onClick={() => window.location.href='/search'} />
+                          <MiniLink icon={<Book size={16}/>} title="Study Material" onClick={() => window.location.href='/search'} />
+                          <MiniLink icon={<Video size={16}/>} title="Recorded Classes" onClick={() => window.location.href='/search'} />
                         </div>
                      </div>
                      <div>
@@ -382,6 +367,7 @@ const Navbar = () => {
           </motion.div>
         )}
       </AnimatePresence>
+      <div id="recaptcha-container"></div>
     </>
   );
 };

@@ -11,24 +11,36 @@ const Login = () => {
   const [phone, setPhone] = React.useState('');
   const [otp, setOtp] = React.useState('');
   const [loading, setLoading] = React.useState(false);
+  const [confirmationResult, setConfirmationResult] = React.useState(null);
 
   const handleSendOtp = async () => {
     if (!phone) return alert("Please enter a phone number");
     setLoading(true);
-    await AuthService.sendOtp(phone);
+    const result = await AuthService.sendOtp(phone);
     setLoading(false);
-    setStep('otp');
+    
+    if (result.success) {
+        setConfirmationResult(result.confirmationResult);
+        setStep('otp');
+    } else {
+        alert("Failed to send OTP: " + result.message);
+    }
   };
 
   const handleVerifyOtp = async () => {
     if (!otp) return alert("Please enter the OTP");
     setLoading(true);
-    const result = await AuthService.verifyOtp(phone, otp);
+    const result = await AuthService.verifyOtp(confirmationResult, otp);
     setLoading(false);
+    
     if (result.success) {
-      window.location.href = result.user.role === 'TUTOR' ? '/dashboard' : '/marketplace';
+      if (result.isNewUser) {
+          window.location.href = '/select-role';
+      } else {
+          window.location.href = result.user.role === 'tutor' ? '/dashboard' : '/marketplace';
+      }
     } else {
-      alert("Invalid OTP. Try 123456");
+      alert(result.message || "Invalid OTP");
     }
   };
 

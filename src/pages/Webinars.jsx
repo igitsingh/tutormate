@@ -43,7 +43,11 @@ const Webinars = () => {
             transition={{ delay: 0.3 }}
             style={{ display: 'flex', justifyContent: 'center', gap: 24, marginBottom: 40 }}
           >
-            <button className="btn btn-cta" style={{ padding: '20px 48px', borderRadius: 20, fontSize: '1.2rem' }}>
+            <button 
+              onClick={() => window.location.href = '/signup'}
+              className="btn btn-cta" 
+              style={{ padding: '20px 48px', borderRadius: 20, fontSize: '1.2rem' }}
+            >
               Host Your First Class Free
             </button>
             <button className="btn btn-white" style={{ padding: '20px 48px', borderRadius: 20, fontSize: '1.2rem' }}>
@@ -327,7 +331,11 @@ const Webinars = () => {
             </p>
             
             <div style={{ display: 'flex', justifyContent: 'center', gap: 32 }}>
-               <button className="btn btn-cta" style={{ padding: '24px 72px', borderRadius: 40, fontSize: '1.4rem' }}>
+               <button 
+                  onClick={() => window.location.href = '/signup'}
+                  className="btn btn-cta" 
+                  style={{ padding: '24px 72px', borderRadius: 40, fontSize: '1.4rem' }}
+               >
                   Get Started Free <ArrowRight size={28}/>
                </button>
                <button className="btn btn-white" style={{ padding: '24px 72px', borderRadius: 40, fontSize: '1.4rem' }}>

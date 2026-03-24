@@ -15,23 +15,24 @@ import AdminRevenue from './pages/AdminRevenue'
 import Referral from './pages/Referral'
 import MarketingAssets from './pages/MarketingAssets'
 import SignUp from './pages/SignUp'
+import SelectRole from './pages/SelectRole'
 
-import Marketplace from './pages/Marketplace'
 import Webinars from './pages/Webinars'
 import Cohorts from './pages/Cohorts'
 import Ecosystem from './pages/Ecosystem'
 import AdminPanel from './pages/AdminPanel'
 import CreateService from './pages/CreateService'
+import Tuition from './pages/Tuition'
 
 function App() {
   return (
     <Router>
       <Routes>
         <Route path="/" element={<Home />} />
-        <Route path="/marketplace" element={<Marketplace />} />
         <Route path="/search" element={<SearchPage />} />
         <Route path="/groupclasses" element={<Webinars />} />
         <Route path="/livecohorts" element={<Cohorts />} />
+        <Route path="/tuition" element={<Tuition />} />
         <Route path="/ecosystem" element={<Ecosystem />} />
         <Route path="/admin" element={<AdminPanel />} />
         <Route path="/create-service" element={<CreateService />} />
@@ -41,6 +42,7 @@ function App() {
         <Route path="/signup" element={<SignUp />} />
         <Route path="/pricing" element={<Pricing />} />
         <Route path="/dashboard" element={<TutorDashboard />} />
+        <Route path="/select-role" element={<SelectRole />} />
         <Route path="/admin-revenue" element={<AdminRevenue />} />
         <Route path="/marketing-vault" element={<MarketingAssets />} />
       </Routes>

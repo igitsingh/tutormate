@@ -8,6 +8,7 @@ import {
   Target, Rocket, Instagram, Linkedin, Twitter, ExternalLink, Globe, Users, Heart
 } from 'lucide-react';
 import Navbar from '../components/Navbar';
+import Logo from '../components/Logo';
 import { ApiService } from '../services/api';
 
 const TutorProfile = () => {
@@ -155,7 +156,7 @@ const TutorProfile = () => {
 
                   <div style={{ marginTop: 40, borderTop: '1px solid #f1f5f9', paddingTop: 32 }}>
                      <p style={{ textAlign: 'center', color: '#94a3b8', fontSize: '0.9rem', fontWeight: 800, marginBottom: 8 }}>HOUSE OF FLOYDS CREATION</p>
-                     <p style={{ textAlign: 'center', color: '#94a3b8', fontSize: '0.85rem', fontWeight: 600 }}>Securely powered by <span style={{ fontWeight: 900 }}>tutor</span><span style={{ fontWeight: 300 }}>mate</span></p>
+                     <p style={{ textAlign: 'center', color: '#94a3b8', fontSize: '0.85rem', fontWeight: 600, display: 'flex', alignItems: 'center', justifyContent: 'center', gap: 8 }}>Securely powered by <Logo size="sm" /></p>
                   </div>
               </motion.div>
            </div>

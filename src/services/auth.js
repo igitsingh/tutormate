@@ -1,44 +1,75 @@
-/**
- * MA TUTORS Auth Service
- * 🔐 OTP-Based Authentication & Session Management
- */
+import { auth } from "../firebase";
+import { RecaptchaVerifier, signInWithPhoneNumber } from "firebase/auth";
 
-const delay = () => new Promise(res => setTimeout(res, 1000));
+/**
+ * TutorMate Auth Service
+ * 🔐 Real Firebase OTP-Based Authentication & Session Management
+ */
 
 export const AuthService = {
     // 📨 Step 1: Send OTP to Phone
     sendOtp: async (phone) => {
-        await delay();
-        console.log("SENDING OTP TO", phone);
-        return { success: true, message: "OTP sent successfully" };
-    },
+        try {
+            // Ensure phone starts with +91 if not provided
+            const formattedPhone = phone.startsWith('+') ? phone : `+91${phone}`;
+            
+            if (!window.recaptchaVerifier) {
+                window.recaptchaVerifier = new RecaptchaVerifier(auth, 'recaptcha-container', {
+                    'size': 'invisible',
+                    'callback': (response) => {
+                        console.log("reCAPTCHA verified");
+                    }
+                });
+            }
 
-    // 🔑 Step 2: Verify OTP
-    verifyOtp: async (phone, otp) => {
-        await delay();
-        if (otp === '123456') { // Mock verification
-            const user = {
-                id: 'usr_123',
-                phone: phone,
-                name: 'Gautam',
-                role: phone.endsWith('0') ? 'TUTOR' : 'STUDENT',
-                is_onboarded: true
-            };
-            localStorage.setItem('ma_user', JSON.stringify(user));
-            return { success: true, user };
+            const confirmationResult = await signInWithPhoneNumber(auth, formattedPhone, window.recaptchaVerifier);
+            return { success: true, confirmationResult };
+        } catch (error) {
+            console.error("Error sending OTP:", error);
+            return { success: false, message: error.message };
         }
-        return { success: false, message: "Invalid OTP" };
     },
 
-    // 👤 Get Current User (Persistence)
+    // 🔑 Step 2: Verify OTP and Sync with Backend
+    verifyOtp: async (confirmationResult, otp) => {
+        try {
+            const result = await confirmationResult.confirm(otp);
+            const firebaseUser = result.user;
+
+            // 🚀 Sync with Backend for JWT
+            const response = await fetch("/api/auth/login", {
+                method: "POST",
+                headers: { "Content-Type": "application/json" },
+                body: JSON.stringify({ phone: firebaseUser.phoneNumber })
+            });
+
+            const data = await response.json();
+            
+            if (data.token) {
+                localStorage.setItem("tutormate_token", data.token);
+                localStorage.setItem("tutormate_user", JSON.stringify(data.user));
+                return { success: true, user: data.user };
+            } else {
+                return { success: false, message: "Backend sync failed" };
+            }
+        } catch (error) {
+            console.error("Error verifying OTP:", error);
+            return { success: false, message: "Invalid OTP or session expired" };
+        }
+    },
+
+    // 👤 Get Current User
     getCurrentUser: () => {
-        const user = localStorage.getItem('ma_user');
+        const user = localStorage.getItem('tutormate_user');
         return user ? JSON.parse(user) : null;
     },
 
     // 🚪 Logout
     logout: () => {
-        localStorage.removeItem('ma_user');
+        localStorage.removeItem('tutormate_token');
+        localStorage.removeItem('tutormate_user');
+        auth.signOut();
         window.location.href = '/';
     }
 };
+

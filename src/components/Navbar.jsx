@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { useLocation } from 'react-router-dom';
+import { useLocation, useNavigate } from 'react-router-dom';
 import { motion, AnimatePresence } from 'framer-motion';
 import { Search, Book, MapPin, X, ChevronRight, Navigation, ChevronDown, Video, Users, Zap, Heart, Star, Package } from 'lucide-react';
 import { AuthService } from '../services/auth';
@@ -15,12 +15,13 @@ const Navbar = () => {
   const [locationName, setLocationName] = useState('');
   
   const location = useLocation();
+  const navigate = useNavigate();
   const user = AuthService.getCurrentUser();
   const isSearchActive = location.pathname === '/search';
 
   const handleSearch = () => {
     if (subject) {
-      window.location.href = `/marketplace?subject=${subject}&location=${navLocation}`;
+      navigate(`/marketplace?subject=${subject}&location=${navLocation}`);
       setShowSearch(false);
     }
   };
@@ -69,7 +70,7 @@ const Navbar = () => {
         }}
       >
         <div style={{ width: '100%', maxWidth: 1400, display: 'flex', alignItems: 'center', justifyContent: 'space-between' }}>
-        <Logo onClick={() => window.location.href = '/'} />
+        <Logo onClick={() => navigate('/')} />
 
         {/* Desktop Menu - Pill Style Island */}
         <div style={{ 
@@ -119,26 +120,26 @@ const Navbar = () => {
                      <div>
                         <h5 style={{ fontSize: '0.75rem', color: 'var(--text-subtle)', fontWeight: 800, textTransform: 'uppercase', marginBottom: 24 }}>Teaching Services</h5>
                         <div style={{ display: 'flex', flexDirection: 'column', gap: 20 }}>
-                           <MiniLink icon={<Book size={16}/>} title="1:1 Tuition Classes" onClick={() => window.location.href='/tuition'} />
-                          <MiniLink icon={<Users size={16}/>} title="Group Classes" onClick={() => window.location.href='/groupclasses'} />
-                          <MiniLink icon={<Video size={16}/>} title="Live Cohorts" onClick={() => window.location.href='/livecohorts'} />
-                          <MiniLink icon={<Zap size={16}/>} title="Doubt Solving" onClick={() => window.location.href='/search'} />
+                           <MiniLink icon={<Book size={16}/>} title="1:1 Tuition Classes" onClick={() => navigate('/tuition')} />
+                          <MiniLink icon={<Users size={16}/>} title="Group Classes" onClick={() => navigate('/groupclasses')} />
+                          <MiniLink icon={<Video size={16}/>} title="Live Cohorts" onClick={() => navigate('/livecohorts')} />
+                          <MiniLink icon={<Zap size={16}/>} title="Doubt Solving" onClick={() => navigate('/search')} />
                         </div>
                      </div>
                      <div>
                         <h5 style={{ fontSize: '0.75rem', color: 'var(--text-subtle)', fontWeight: 800, textTransform: 'uppercase', marginBottom: 24 }}>Learning Products</h5>
                         <div style={{ display: 'flex', flexDirection: 'column', gap: 20 }}>
-                          <MiniLink icon={<Package size={16}/>} title="Course Packages" onClick={() => window.location.href='/search'} />
-                          <MiniLink icon={<Book size={16}/>} title="Study Material" onClick={() => window.location.href='/search'} />
-                          <MiniLink icon={<Video size={16}/>} title="Recorded Classes" onClick={() => window.location.href='/search'} />
+                          <MiniLink icon={<Package size={16}/>} title="Course Packages" onClick={() => navigate('/search')} />
+                          <MiniLink icon={<Book size={16}/>} title="Study Material" onClick={() => navigate('/search')} />
+                          <MiniLink icon={<Video size={16}/>} title="Recorded Classes" onClick={() => navigate('/search')} />
                         </div>
                      </div>
                      <div>
                         <h5 style={{ fontSize: '0.75rem', color: 'var(--text-subtle)', fontWeight: 800, textTransform: 'uppercase', marginBottom: 24 }}>For Tutors</h5>
                         <div style={{ display: 'flex', flexDirection: 'column', gap: 20 }}>
-                          <MiniLink icon={<Users size={16}/>} title="Get Students" onClick={() => window.location.href='/pricing'} />
-                          <MiniLink icon={<Zap size={16}/>} title="Grow Earnings" onClick={() => window.location.href='/pricing'} />
-                          <MiniLink icon={<Book size={16}/>} title="Tutor Dashboard" onClick={() => window.location.href='/admin'} />
+                          <MiniLink icon={<Users size={16}/>} title="Get Students" onClick={() => navigate('/pricing')} />
+                          <MiniLink icon={<Zap size={16}/>} title="Grow Earnings" onClick={() => navigate('/pricing')} />
+                          <MiniLink icon={<Book size={16}/>} title="Tutor Dashboard" onClick={() => navigate('/admin')} />
                         </div>
                      </div>
                      <div style={{ background: 'var(--bg-soft-grey)', margin: -40, marginLeft: 0, padding: 40, borderRadius: 16 }}>
@@ -240,13 +241,13 @@ const Navbar = () => {
         
         <div style={{ display: 'flex', alignItems: 'center', gap: 16 }}>
            <button 
-              onClick={() => window.location.href = '/login'}
+              onClick={() => navigate('/login')}
               style={{ background: 'transparent', border: 'none', padding: '10px 20px', borderRadius: 12, fontWeight: 700, cursor: 'pointer', fontSize: '0.9rem', color: 'var(--text-strong)' }}
            >
               Sign In
            </button>
            <button 
-              onClick={() => window.location.href = '/signup'}
+              onClick={() => navigate('/signup')}
               style={{ background: 'var(--cta-orange)', color: 'white', border: 'none', padding: '12px 28px', borderRadius: 12, fontWeight: 800, cursor: 'pointer', fontSize: '0.95rem', boxShadow: '0 4px 14px 0 rgba(249, 115, 22, 0.3)', transition: '0.3s' }}
               onMouseEnter={e => { e.currentTarget.style.background = 'var(--hover-orange)'; e.currentTarget.style.transform = 'translateY(-2px)'; }}
               onMouseLeave={e => { e.currentTarget.style.background = 'var(--cta-orange)'; e.currentTarget.style.transform = 'translateY(0)'; }}

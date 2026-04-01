@@ -1,13 +1,15 @@
 import React from 'react';
 import { Linkedin, Twitter, Instagram, ChevronDown, Globe, Mail, ShieldCheck } from 'lucide-react';
+import { useNavigate } from 'react-router-dom';
 import Logo from './Logo';
 
 const Footer = () => {
+  const navigate = useNavigate();
   return (
     <footer style={{ background: 'var(--text-strong)', color: 'white', padding: '120px 80px 64px' }}>
       <div style={{ maxWidth: 1400, margin: '0 auto', display: 'flex', justifyContent: 'space-between', alignItems: 'flex-start', marginBottom: 100 }}>
         <div style={{ flex: 1 }}>
-          <Logo size="lg" light={true} style={{ marginBottom: 48 }} onClick={() => window.location.href = '/'} />
+          <Logo size="lg" light={true} style={{ marginBottom: 48 }} onClick={() => navigate('/')} />
           
           <button style={{ background: 'rgba(255,255,255,0.05)', border: '1px solid rgba(255,255,255,0.1)', color: 'var(--text-subtle)', padding: '14px 28px', borderRadius: 99, display: 'flex', alignItems: 'center', gap: 12, fontWeight: 800, marginBottom: 48, cursor: 'pointer', transition: 'all 0.2s' }}>
             <Globe size={18} /> Top Profiles <ChevronDown size={18} />

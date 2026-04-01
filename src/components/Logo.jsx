@@ -1,6 +1,6 @@
 import React from 'react';
 
-const Logo = ({ size = 'md', light = false, style = {} }) => {
+const Logo = ({ size = 'md', light = false, style = {}, onClick }) => {
   const isLarge = size === 'lg';
   const isSmall = size === 'sm';
   
@@ -15,6 +15,7 @@ const Logo = ({ size = 'md', light = false, style = {} }) => {
 
   return (
     <div 
+      onClick={onClick}
       style={{
         display: 'flex',
         alignItems: 'center',

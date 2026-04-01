@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { useParams } from 'react-router-dom';
+import { useParams, useNavigate } from 'react-router-dom';
 import { motion, AnimatePresence } from 'framer-motion';
 import { 
   User, Star, ShieldCheck, MapPin, Search, ChevronRight, MessageCircle, 
@@ -13,6 +13,7 @@ import { ApiService } from '../services/api';
 
 const TutorProfile = () => {
   const { id } = useParams();
+  const navigate = useNavigate();
   const [tutor, setTutor] = useState(null);
   const [loading, setLoading] = useState(true);
   const [selectedService, setSelectedService] = useState(null);
@@ -156,7 +157,7 @@ const TutorProfile = () => {
 
                   <div style={{ marginTop: 40, borderTop: '1px solid #f1f5f9', paddingTop: 32 }}>
                      <p style={{ textAlign: 'center', color: '#94a3b8', fontSize: '0.9rem', fontWeight: 800, marginBottom: 8 }}>HOUSE OF FLOYDS CREATION</p>
-                     <p style={{ textAlign: 'center', color: '#94a3b8', fontSize: '0.85rem', fontWeight: 600, display: 'flex', alignItems: 'center', justifyContent: 'center', gap: 8 }}>Securely powered by <Logo size="sm" /></p>
+                     <p style={{ textAlign: 'center', color: '#94a3b8', fontSize: '0.85rem', fontWeight: 600, display: 'flex', alignItems: 'center', justifyContent: 'center', gap: 8 }}>Securely powered by <Logo size="sm" onClick={() => navigate('/')} /></p>
                   </div>
               </motion.div>
            </div>

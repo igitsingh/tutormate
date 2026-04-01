@@ -36,5 +36,8 @@ app.use('/api/requests', require('./routes/requestRoutes'));
 app.use('/api/tutors', require('./routes/tutorRoutes'));
 
 const PORT = process.env.PORT || 5001;
-app.listen(PORT, () => console.log(`🚀 TutorMate Backend running on port ${PORT}`));
+if (process.env.NODE_ENV !== 'production' || !process.env.VERCEL) {
+  app.listen(PORT, () => console.log(`🚀 TutorMate Backend running on port ${PORT}`));
+}
 
+module.exports = app;
